@@ -1,0 +1,7 @@
+{
+  "name": "Divina Cantina",
+  "description": "Un'applicazione elegante per la gestione della cantina vini domestica. Include gestione inventario, storico, e riconoscimento automatico delle etichette tramite AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
