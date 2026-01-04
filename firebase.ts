@@ -68,7 +68,7 @@ const getFirebaseConfig = () => {
   let env: any = {};
   try {
     // Accesso sicuro a import.meta.env
-    env = import.meta.env || {};
+    env = (import.meta as any).env || {};
   } catch (e) {
     console.warn("Environment variables not accessible");
   }

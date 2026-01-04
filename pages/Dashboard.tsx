@@ -9,8 +9,8 @@ const Dashboard: React.FC = () => {
   const { totalBottles, totalValue, typeDistribution } = getStats();
 
   const pieData = Object.entries(typeDistribution)
-    .filter(([_, value]) => value > 0)
-    .map(([name, value]) => ({ name, value }));
+    .filter(([_, value]) => (value as number) > 0)
+    .map(([name, value]) => ({ name, value: value as number }));
 
   const COLORS = {
     [WineType.RED]: '#711e1e', // wine-900

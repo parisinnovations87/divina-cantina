@@ -15,7 +15,7 @@ interface WineContextType {
 
 const WineContext = createContext<WineContextType | undefined>(undefined);
 
-export const WineProvider = ({ children }: { children: ReactNode }) => {
+export const WineProvider = ({ children }: { children?: ReactNode }) => {
   const [wines, setWines] = useState<Wine[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useAuth();
