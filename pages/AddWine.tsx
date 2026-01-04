@@ -83,12 +83,19 @@ const AddWine: React.FC = () => {
         if (result) {
             setFormData(prev => ({
                 ...prev,
-                producer: result.producer || prev.producer,
-                vintage: result.vintage || prev.vintage,
-                type: result.type as WineType || prev.type,
-                grape: result.grape || prev.grape,
-                region: result.region || prev.region,
-                pairing: result.pairing || prev.pairing
+                // Logica intelligente: mantieni il valore utente se esiste (prev.valore || ...),
+                // altrimenti usa il suggerimento AI (result.valore), altrimenti stringa vuota.
+                
+                producer: prev.producer || result.producer || '',
+                vintage: prev.vintage || result.vintage || '',
+                
+                // Per il tipo: lo aggiorniamo solo se l'utente è ancora sul valore di default (Rosso)
+                // Se l'utente ha selezionato manualmente un altro tipo, lo rispettiamo.
+                type: (prev.type === WineType.RED && result.type) ? (result.type as WineType) : prev.type,
+                
+                grape: prev.grape || result.grape || '',
+                region: prev.region || result.region || '',
+                pairing: prev.pairing || result.pairing || ''
             }));
         }
     } catch (error) {
