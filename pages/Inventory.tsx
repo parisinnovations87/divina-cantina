@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useWine } from '../contexts/WineContext';
 import WineCard from '../components/WineCard';
 import { Search, Filter } from 'lucide-react';
 import { WineType } from '../types';
 
 const Inventory: React.FC = () => {
+  const navigate = useNavigate();
   const { wines, updateWine, deleteWine } = useWine();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
@@ -21,6 +23,10 @@ const Inventory: React.FC = () => {
       return matchesSearch && matchesType;
     });
   }, [wines, searchTerm, filterType]);
+
+  const handleEdit = (wine: any) => {
+    navigate(`/edit/${wine.id}`);
+  };
 
   return (
     <div className="space-y-6">
@@ -70,7 +76,8 @@ const Inventory: React.FC = () => {
               key={wine.id} 
               wine={wine} 
               onUpdate={updateWine} 
-              onDelete={deleteWine} 
+              onDelete={deleteWine}
+              onEdit={handleEdit}
             />
           ))}
         </div>

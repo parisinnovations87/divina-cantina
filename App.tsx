@@ -31,6 +31,7 @@ const AppRoutes = () => {
         <Route index element={<Dashboard />} />
         <Route path="inventory" element={<Inventory />} />
         <Route path="add" element={<AddWine />} />
+        <Route path="edit/:id" element={<AddWine />} />
       </Route>
     </Routes>
   );

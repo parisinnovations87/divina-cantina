@@ -1,11 +1,12 @@
 import React from 'react';
 import { Wine, WineType } from '../types';
-import { Droplet, Calendar, MapPin, Package, Edit2, Trash2, Plus, Minus } from 'lucide-react';
+import { Droplet, Calendar, MapPin, Edit2, Trash2, Plus, Minus, Percent } from 'lucide-react';
 
 interface WineCardProps {
   wine: Wine;
   onUpdate: (id: string, updates: Partial<Wine>) => void;
   onDelete: (id: string) => void;
+  onEdit: (wine: Wine) => void;
 }
 
 const getTypeColor = (type: WineType) => {
@@ -19,7 +20,7 @@ const getTypeColor = (type: WineType) => {
   }
 };
 
-const WineCard: React.FC<WineCardProps> = ({ wine, onUpdate, onDelete }) => {
+const WineCard: React.FC<WineCardProps> = ({ wine, onUpdate, onDelete, onEdit }) => {
   const handleQuantityChange = (delta: number) => {
     const newQty = Math.max(0, wine.quantity + delta);
     onUpdate(wine.id, { quantity: newQty });
@@ -33,6 +34,13 @@ const WineCard: React.FC<WineCardProps> = ({ wine, onUpdate, onDelete }) => {
             {wine.type}
           </span>
           <div className="flex gap-2 text-slate-400">
+             <button 
+              onClick={() => onEdit(wine)} 
+              className="hover:text-amber-500 transition-colors"
+              title="Modifica"
+            >
+              <Edit2 size={16} />
+            </button>
             <button 
               onClick={() => onDelete(wine.id)} 
               className="hover:text-red-500 transition-colors"
@@ -55,10 +63,16 @@ const WineCard: React.FC<WineCardProps> = ({ wine, onUpdate, onDelete }) => {
             <MapPin size={14} className="text-wine-400" />
             <span className="truncate">{wine.region}</span>
           </div>
-           <div className="flex items-center gap-2 col-span-2">
+           <div className="flex items-center gap-2">
             <Droplet size={14} className="text-wine-400" />
             <span className="truncate">{wine.grape}</span>
           </div>
+          {wine.alcoholContent && (
+             <div className="flex items-center gap-2">
+                <Percent size={14} className="text-wine-400" />
+                <span className="truncate">{wine.alcoholContent}</span>
+            </div>
+          )}
         </div>
 
         {wine.pairing && (
